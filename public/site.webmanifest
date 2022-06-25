@@ -1,6 +1,6 @@
 {
-  "name": "Next.js WordPress Starter",
-  "short_name": "Next.js WP Starter",
+  "name": "HerstelMobiel Blog",
+  "short_name": "HM Blog",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#000000",
-  "background_color": "#000000",
+  "theme_color": "#1D0251",
+  "background_color": "#1D0251",
   "display": "standalone"
 }
