@@ -2,7 +2,7 @@
 
 .nav {
   width: 100%;
-  border-bottom: 1px solid $color-gray-100;
+  border-bottom: 1px solid $color-blue-100;
   padding: 0 1rem;
 }
 
@@ -36,7 +36,7 @@
   }
 
   a {
-    color: $color-gray-500;
+    color: $color-blue-500;
     font-size: 1.2rem;
     font-weight: bold;
     text-decoration: none;
@@ -85,13 +85,13 @@
 
     &[disabled] {
       svg {
-        fill: $color-gray-200;
+        fill: $color-blue-200;
         transition: fill 0.5s;
       }
     }
 
     svg {
-      fill: $color-gray-400;
+      fill: $color-blue-400;
       transform: translateY(2px);
     }
 
@@ -138,12 +138,12 @@
 
   a {
     display: block;
-    color: $color-gray-800;
+    color: $color-blue-800;
     text-decoration: none;
     padding: 0.5em;
     margin: 0 -0.5em;
     &:focus {
-      outline: 2px solid $color-blue-500;
+      outline: 2px solid $color-green-500;
     }
 
     @media (hover: hover) {
@@ -201,7 +201,7 @@
   a {
     display: block;
     text-decoration: none;
-    color: $color-gray-600;
+    color: $color-blue-600;
     font-size: 1.1em;
     padding: 0.5em;
 

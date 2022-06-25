@@ -9,7 +9,7 @@
     }
 
     a {
-      color: $color-gray-800;
+      color: $color-blue-800;
       text-decoration: none;
 
       @media (hover: hover) {
@@ -25,6 +25,6 @@
 .childrenHeader {
   font-size: 0.7em;
   padding-bottom: 0.4em;
-  border-bottom: solid 1px $color-gray-100;
+  border-bottom: solid 1px $color-blue-100;
   margin-top: 0;
 }
