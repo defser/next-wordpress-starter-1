@@ -11,7 +11,7 @@ import Section from 'components/Section';
 
 import styles from './Nav.module.scss';
 import NavListItem from 'components/NavListItem';
-import logoLight from "../../assets/logo-light.png";
+import logoLight from '../../assets/logo-light.png';
 
 const SEARCH_VISIBLE = 'visible';
 const SEARCH_HIDDEN = 'hidden';
@@ -179,7 +179,7 @@ const Nav = () => {
       <Section className={styles.navSection}>
         <p className={styles.navName}>
           <Link href="https://www.herstelmobiel.nl/">
-            <img src={logoLight} width="74px" height="74px" alt="HerstelMobiel.nl"/>
+            <img src={logoLight} width="74px" height="74px" alt="HerstelMobiel.nl" />
           </Link>
         </p>
         <ul className={styles.navMenu}>
