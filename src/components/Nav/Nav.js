@@ -179,7 +179,9 @@ const Nav = () => {
       <Section className={styles.navSection}>
         <p className={styles.navName}>
           <Link href="https://www.herstelmobiel.nl/">
-            <img src={logoLight.src} width="74px" height="74px" alt="HerstelMobiel.nl" />
+            <a>
+              <img src={logoLight.src} width="74px" height="74px" alt="HerstelMobiel.nl" />
+            </a>
           </Link>
         </p>
         <ul className={styles.navMenu}>
