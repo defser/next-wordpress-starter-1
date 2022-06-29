@@ -11,6 +11,7 @@ import Section from 'components/Section';
 
 import styles from './Nav.module.scss';
 import NavListItem from 'components/NavListItem';
+import logoLight from "../../assets/logo-light.png";
 
 const SEARCH_VISIBLE = 'visible';
 const SEARCH_HIDDEN = 'hidden';
@@ -20,8 +21,7 @@ const Nav = () => {
 
   const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
 
-  const { metadata = {}, menus } = useSite();
-  const { title } = metadata;
+  const { menus } = useSite();
 
   const navigationLocation = process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || MENU_LOCATION_NAVIGATION_DEFAULT;
   const navigation = findMenuByLocation(menus, navigationLocation);
@@ -178,8 +178,8 @@ const Nav = () => {
     <nav className={styles.nav}>
       <Section className={styles.navSection}>
         <p className={styles.navName}>
-          <Link href="/">
-            <a>{title}</a>
+          <Link href="https://www.herstelmobiel.nl/">
+            <img src={logoLight} width="74px" height="74px" alt="HerstelMobiel.nl"/>
           </Link>
         </p>
         <ul className={styles.navMenu}>
