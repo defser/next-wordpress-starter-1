@@ -210,7 +210,9 @@ const Nav = () => {
               navItems.map((item, key) => (
                 <li key={key}>
                   <Link href={item.link} passHref>
-                    <a className={item.id === 2 ? styles.active : ''}>{item.title}</a>
+                    <a className={item.id === 2 ? styles.active : ''} onClick={toggleMenu}>
+                      {item.title}
+                    </a>
                   </Link>
                 </li>
               ))}
@@ -241,6 +243,7 @@ const Nav = () => {
                               <li key={slug}>
                                 <Link tabIndex={index} href={postPathBySlug(slug)}>
                                   <a
+                                    onClick={toggleMenu}
                                     dangerouslySetInnerHTML={{
                                       __html: title,
                                     }}
