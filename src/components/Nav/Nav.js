@@ -183,7 +183,7 @@ const Nav = () => {
     <header className={styles.topnav}>
       <Container>
         <div className={styles.logo}>
-          <Link href="/">
+          <Link href="https://herstelmobiel.nl/">
             <a>
               <Image src={logoLight} width="74px" height="74px" alt="HerstelMobiel.nl" />
             </a>
