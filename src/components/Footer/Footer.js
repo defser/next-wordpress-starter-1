@@ -36,7 +36,11 @@ const Footer = () => {
                       return (
                         <li key={id}>
                           <Link href={postPathBySlug(slug)}>
-                            <a>{title}</a>
+                            <a
+                              dangerouslySetInnerHTML={{
+                                __html: title,
+                              }}
+                            ></a>
                           </Link>
                         </li>
                       );

@@ -1,30 +1,31 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
-import { FaSearch } from 'react-icons/fa';
 
-import useSite from 'hooks/use-site';
-import useSearch, { SEARCH_STATE_LOADED } from 'hooks/use-search';
-import { postPathBySlug } from 'lib/posts';
-import { findMenuByLocation, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus';
-
-import Section from 'components/Section';
+import logoLight from '../../assets/logo-light.png';
+import Image from 'next/image';
+import Container from '../Container';
 
 import styles from './Nav.module.scss';
-import NavListItem from 'components/NavListItem';
-import logoLight from '../../assets/logo-light.png';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import useSearch, { SEARCH_STATE_LOADED } from '../../hooks/use-search';
+import { postPathBySlug } from '../../lib/posts';
+import { FaSearch } from 'react-icons/fa';
 
 const SEARCH_VISIBLE = 'visible';
 const SEARCH_HIDDEN = 'hidden';
 
 const Nav = () => {
+  const navItems = [
+    { id: 1, link: 'https://herstelmobiel.nl/hoe-werkt-het', title: 'Hoe werkt het?' },
+    { id: 1, link: 'https://herstelmobiel.nl/algemene-vragen', title: 'Algemene vragen' },
+    { id: 2, link: '/', title: 'Blog' },
+    { id: 3, link: 'https://herstelmobiel.nl/voor-de-herstellers', title: 'Voor de Herstellers' },
+    { id: 4, link: 'https://herstelmobiel.nl/klantenservice', title: 'Klantenservice' },
+  ];
+
   const formRef = useRef();
 
   const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
-
-  const { menus } = useSite();
-
-  const navigationLocation = process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || MENU_LOCATION_NAVIGATION_DEFAULT;
-  const navigation = findMenuByLocation(menus, navigationLocation);
+  const [menuVisibility, setMenuVisibility] = useState(false);
 
   const { query, results, search, clearSearch, state } = useSearch({
     maxResults: 5,
@@ -60,7 +61,7 @@ const Nav = () => {
       removeDocumentOnClick();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchVisibility]);
+  }, [searchVisibility, menuVisibility]);
 
   /**
    * addDocumentOnClick
@@ -105,6 +106,10 @@ const Nav = () => {
 
   function handleOnToggleSearch() {
     setSearchVisibility(SEARCH_VISIBLE);
+  }
+
+  function toggleMenu() {
+    setMenuVisibility(!menuVisibility);
   }
 
   /**
@@ -175,63 +180,91 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className={styles.nav}>
-      <Section className={styles.navSection}>
-        <p className={styles.navName}>
-          <Link href="https://www.herstelmobiel.nl/">
+    <header className={styles.topnav}>
+      <Container>
+        <div className={styles.logo}>
+          <Link href="/">
             <a>
-              <img src={logoLight.src} width="74px" height="74px" alt="HerstelMobiel.nl" />
+              <Image src={logoLight} width="74px" height="74px" alt="HerstelMobiel.nl" />
             </a>
           </Link>
-        </p>
-        <ul className={styles.navMenu}>
-          {navigation?.map((listItem) => {
-            return <NavListItem key={listItem.id} className={styles.navSubMenu} item={listItem} />;
-          })}
-        </ul>
-        <div className={styles.navSearch}>
-          {searchVisibility === SEARCH_HIDDEN && (
-            <button onClick={handleOnToggleSearch} disabled={!searchIsLoaded}>
-              <span className="sr-only">Toggle Search</span>
-              <FaSearch />
-            </button>
-          )}
-          {searchVisibility === SEARCH_VISIBLE && (
-            <form ref={formRef} action="/search" data-search-is-active={!!query}>
-              <input
-                type="search"
-                name="q"
-                value={query || ''}
-                onChange={handleOnSearch}
-                autoComplete="off"
-                placeholder="Search..."
-                required
-              />
-              <div className={styles.navSearchResults}>
-                {results.length > 0 && (
-                  <ul>
-                    {results.map(({ slug, title }, index) => {
-                      return (
-                        <li key={slug}>
-                          <Link tabIndex={index} href={postPathBySlug(slug)}>
-                            <a>{title}</a>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
+        </div>
+        <div className={styles.menu_extras}>
+          <div className={styles.menu_item}>
+            <a
+              onClick={toggleMenu}
+              className={menuVisibility ? styles.navbar_toggle + ' ' + styles.open : styles.navbar_toggle}
+            >
+              <div className={styles.lines}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div className={styles.navigation} style={{ display: menuVisibility ? 'block' : 'none' }}>
+          <ul className={styles.navigation_menu}>
+            {searchVisibility === SEARCH_HIDDEN &&
+              navItems.map((item, key) => (
+                <li key={key}>
+                  <Link href={item.link} passHref>
+                    <a className={item.id === 2 ? styles.active : ''}>{item.title}</a>
+                  </Link>
+                </li>
+              ))}
+            <li>
+              <div className={styles.navSearch}>
+                {searchVisibility === SEARCH_HIDDEN && (
+                  <button onClick={handleOnToggleSearch} disabled={!searchIsLoaded}>
+                    <span className="sr-only">Toggle Search</span>
+                    <FaSearch />
+                  </button>
                 )}
-                {results.length === 0 && (
-                  <p>
-                    Sorry, not finding anything for <strong>{query}</strong>
-                  </p>
+                {searchVisibility === SEARCH_VISIBLE && (
+                  <form ref={formRef} action="/search" data-search-is-active={!!query}>
+                    <input
+                      type="search"
+                      name="q"
+                      value={query || ''}
+                      onChange={handleOnSearch}
+                      autoComplete="off"
+                      placeholder="Search..."
+                      required
+                    />
+                    <div className={styles.navSearchResults}>
+                      {results.length > 0 && (
+                        <ul>
+                          {results.map(({ slug, title }, index) => {
+                            return (
+                              <li key={slug}>
+                                <Link tabIndex={index} href={postPathBySlug(slug)}>
+                                  <a
+                                    dangerouslySetInnerHTML={{
+                                      __html: title,
+                                    }}
+                                  ></a>
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      )}
+                      {results.length === 0 && (
+                        <p>
+                          Sorry, not finding anything for <strong>{query}</strong>
+                        </p>
+                      )}
+                    </div>
+                  </form>
                 )}
               </div>
-            </form>
-          )}
+            </li>
+          </ul>
         </div>
-      </Section>
-    </nav>
+      </Container>
+    </header>
   );
 };
 
