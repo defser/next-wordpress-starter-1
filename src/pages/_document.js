@@ -32,7 +32,13 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html {...this.helmetHtmlAttrComponents}>
-        <Head>{this.helmetHeadComponents}</Head>
+        <Head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700;900&display=swap"
+            rel="stylesheet"
+          />
+          {this.helmetHeadComponents}
+        </Head>
         <body {...this.helmetBodyAttrComponents}>
           <Main />
           <NextScript />
