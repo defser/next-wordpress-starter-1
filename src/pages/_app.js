@@ -12,16 +12,19 @@ import { getAllMenus } from 'lib/menus';
 import 'styles/globals.scss';
 import variables from 'styles/_variables.module.scss';
 import TagManager from 'react-gtm-module/dist/TagManager';
+import { useEffect } from 'react';
 
 function App({ Component, pageProps = {}, metadata, recentPosts, categories, menus }) {
+  useEffect(() => {
+    TagManager.initialize({ gtmId: 'GTM-MD38Z8S' });
+  }, []);
+
   const site = useSiteContext({
     metadata,
     recentPosts,
     categories,
     menus,
   });
-
-  TagManager.initialize({ gtmId: 'GTM-MD38Z8S' });
 
   return (
     <SiteContext.Provider value={site}>
