@@ -276,6 +276,58 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
   }
 `;
 
+export const QUERY_POSTS_BY_TAG_SLUG_INDEX = gql`
+  ${POST_FIELDS}
+  query PostByTagSlugIndex($slug: String!) {
+    posts(where: { tag: $slug, hasPassword: false }) {
+      edges {
+        node {
+          ...PostFields
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_POSTS_BY_TAG_SLUG_ARCHIVE = gql`
+  ${POST_FIELDS}
+  query PostByTagSlugArchive($slug: String!) {
+    posts(where: { tag: $slug, hasPassword: false }) {
+      edges {
+        node {
+          ...PostFields
+          excerpt
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_POSTS_BY_TAG_SLUG = gql`
+  ${POST_FIELDS}
+  query PostByTagSlug($slug: String!) {
+    posts(where: { tag: $slug, hasPassword: false }) {
+      edges {
+        node {
+          ...PostFields
+          excerpt
+          featuredImage {
+            node {
+              altText
+              caption
+              id
+              sizes
+              sourceUrl
+              srcSet
+            }
+          }
+          modified
+        }
+      }
+    }
+  }
+`;
+
 export const QUERY_POST_SEO_BY_SLUG = gql`
   query PostSEOBySlug($slug: ID!) {
     post(id: $slug, idType: SLUG) {

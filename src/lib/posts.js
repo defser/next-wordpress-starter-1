@@ -16,6 +16,9 @@ import {
   QUERY_POSTS_BY_CATEGORY_ID,
   QUERY_POST_SEO_BY_SLUG,
   QUERY_POST_PER_PAGE,
+  QUERY_POSTS_BY_TAG_SLUG,
+  QUERY_POSTS_BY_TAG_SLUG_ARCHIVE,
+  QUERY_POSTS_BY_TAG_SLUG_INDEX,
 } from 'data/posts';
 
 /**
@@ -172,6 +175,42 @@ export async function getPostsByAuthorSlug({ slug, ...options }) {
     });
   } catch (e) {
     console.log(`[posts][getPostsByAuthorSlug] Failed to query post data: ${e.message}`);
+    throw e;
+  }
+
+  const posts = postData?.data.posts.edges.map(({ node = {} }) => node);
+
+  return {
+    posts: Array.isArray(posts) && posts.map(mapPostData),
+  };
+}
+
+/**
+ * getPostsByTagSlug
+ */
+
+const postsByTagSlugIncludesTypes = {
+  all: QUERY_POSTS_BY_TAG_SLUG,
+  archive: QUERY_POSTS_BY_TAG_SLUG_ARCHIVE,
+  index: QUERY_POSTS_BY_TAG_SLUG_INDEX,
+};
+
+export async function getPostsByTagSlug({ slug, ...options }) {
+  const { queryIncludes = 'index' } = options;
+
+  const apolloClient = getApolloClient();
+
+  let postData;
+
+  try {
+    postData = await apolloClient.query({
+      query: postsByTagSlugIncludesTypes[queryIncludes],
+      variables: {
+        slug,
+      },
+    });
+  } catch (e) {
+    console.log(`[posts][getPostsByTagSlug] Failed to query post data: ${e.message}`);
     throw e;
   }
 
