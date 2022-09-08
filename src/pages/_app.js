@@ -16,7 +16,7 @@ import { useEffect } from 'react';
 
 function App({ Component, pageProps = {}, metadata, recentPosts, categories, menus }) {
   useEffect(() => {
-    TagManager.initialize({ gtmId: 'GTM-MD38Z8S' });
+    TagManager.initialize({ gtmId: 'GTM-WVPFN2K' });
   }, []);
 
   const site = useSiteContext({
