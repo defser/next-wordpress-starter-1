@@ -29,6 +29,7 @@ export default function Author({ user, posts }) {
         Title={<Title title={name} thumbnail={avatar} />}
         posts={posts}
         postOptions={postOptions}
+        path={'/authors/'}
         slug={slug}
         metadata={metadata}
       />

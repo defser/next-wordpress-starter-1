@@ -21,6 +21,7 @@ export default function TemplateArchive({
   Title,
   posts,
   postOptions = DEFAULT_POST_OPTIONS,
+  path,
   slug,
   metadata,
   pagination,
@@ -39,7 +40,13 @@ export default function TemplateArchive({
     <Layout>
       <Helmet {...helmetSettings} />
 
-      <WebpageJsonLd title={title} description={metadata.description} siteTitle={siteMetadata.title} slug={slug} />
+      <WebpageJsonLd
+        title={title}
+        description={metadata.description}
+        siteTitle={siteMetadata.title}
+        path={path}
+        slug={slug}
+      />
 
       <Header>
         <Container>

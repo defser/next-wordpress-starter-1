@@ -105,8 +105,7 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
   const { asPath } = router;
 
   const url = `${homepage}${asPath}`;
-  const pathname = new URL(url).pathname;
-  const canonical = pageMetadata.canonical || `${homepage}${pathname}`;
+  const canonical = url;
 
   const metadata = {
     canonical,

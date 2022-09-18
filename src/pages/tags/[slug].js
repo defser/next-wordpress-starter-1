@@ -17,7 +17,14 @@ export default function Tag({ tag, posts }) {
 
   return (
     <>
-      <TemplateArchive title={name} Title={<Title title={name} />} posts={posts} slug={slug} metadata={metadata} />
+      <TemplateArchive
+        title={name}
+        Title={<Title title={name} />}
+        posts={posts}
+        slug={slug}
+        path={'/tags/'}
+        metadata={metadata}
+      />
     </>
   );
 }

@@ -2,7 +2,6 @@ import { Helmet } from 'react-helmet';
 
 import { authorPathByName } from 'lib/users';
 import { postPathBySlug } from 'lib/posts';
-import { pagePathBySlug } from 'lib/pages';
 
 import config from '../../package.json';
 
@@ -76,16 +75,15 @@ export function WebsiteJsonLd({ siteTitle = '' }) {
   );
 }
 
-export function WebpageJsonLd({ title = '', description = '', siteTitle = '', slug = '' }) {
+export function WebpageJsonLd({ title = '', description = '', siteTitle = '', path = '/', slug = '' }) {
   const { homepage = '' } = config;
-  const path = pagePathBySlug(slug);
 
   const jsonLd = {
     '@context': 'http://schema.org',
     '@type': 'WebPage',
     name: title,
     description: description,
-    url: `${homepage}${path}`,
+    url: `${homepage}${path}${slug}`,
     publisher: {
       '@type': 'ProfilePage',
       name: siteTitle,

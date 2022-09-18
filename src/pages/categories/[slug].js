@@ -15,7 +15,16 @@ export default function Category({ category, posts }) {
     },
   });
 
-  return <TemplateArchive title={name} Title={<Title title={name} />} posts={posts} slug={slug} metadata={metadata} />;
+  return (
+    <TemplateArchive
+      title={name}
+      Title={<Title title={name} />}
+      posts={posts}
+      slug={slug}
+      path={'/categories/'}
+      metadata={metadata}
+    />
+  );
 }
 
 export async function getStaticProps({ params = {} } = {}) {
